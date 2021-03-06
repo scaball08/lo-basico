@@ -4,6 +4,7 @@ const Formulario = () => {
     const [fruta,setfruta] = React.useState('');
     const  [descripcion,setDescripcion] = React.useState('');
     const [lista,setLista] = React.useState([]);
+    let cont = 0;
     const guardarDatos = (event)=>{
         event.preventDefault();
 
@@ -18,8 +19,9 @@ const Formulario = () => {
             return
         }
 
+        cont+=1;
         console.log('Procesando datos...' + fruta + ' ' +  descripcion);
-        setLista(...lista,{nombreFruta:fruta,nameDescripcion:descripcion});
+        setLista([...lista,{id:cont,nombreFruta:fruta,nameDescripcion:descripcion}]);
         event.target.reset();
         setDescripcion('');
         setfruta('');
@@ -48,15 +50,18 @@ const Formulario = () => {
                 </button>
                
             </form>
-           <ul>
+           <ul className="list-group mt-2">
                
               { 
-                lista.map((item,index)=> (
-                <li key={index} 
-                className="list-group-item">su fruta es {item.nombreFruta} y es {item.nameDescripcion} 
-                </li>
-                ) )
+                lista.map((item,index)=> 
+                {
+                return (<li key={index} 
+                className="list-group-item ">La fruta es: {item.nombreFruta} y es su descripcion: {item.nameDescripcion} 
+                </li>) ;
+                })
               }
+
+          
              
            </ul>
         </div>
